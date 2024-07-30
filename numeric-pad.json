@@ -1,0 +1,82 @@
+[
+    [
+        {
+            "name": "one",
+            "label": "1",
+            "sign": "o_o",
+            "sound": 0
+        },
+        {
+            "name": "two",
+            "label": "2",
+            "sign": "abc",
+            "sound": 1
+        },
+        {
+            "name": "three",
+            "label": "3",
+            "sign": "def",
+            "sound": 2
+        }
+    ],
+    [
+        {
+            "name": "four",
+            "label": "4",
+            "sign": "ghi",
+            "sound": 3
+        },
+        {
+            "name": "five",
+            "label": "5",
+            "sign": "jkl",
+            "sound": 4
+        },
+        {
+            "name": "six",
+            "label": "6",
+            "sign": "mno",
+            "sound": 5
+        }
+    ],
+    [
+        {
+            "name": "seven",
+            "label": "7",
+            "sign": "pqrs",
+            "sound": 6
+        },
+        {
+            "name": "eight",
+            "label": "8",
+            "sign": "tuv",
+            "sound": 7
+        },
+        {
+            "name": "nine",
+            "label": "9",
+            "sign": "wxyz",
+            "sound": 8
+        }
+    ],
+    [
+        {
+            "name": "asterik",
+            "label": "*",
+            "sign": "+",
+            "sound": 9
+        },
+        {
+            "name": "zero",
+            "label": "0",
+            "sign": "|__|",
+            "sound": 10
+        },
+        {
+            "name": "hash",
+            "label": "#",
+            "sign": "^",
+            "sound": 11
+        }
+    ]
+]
