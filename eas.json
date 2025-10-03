@@ -1,0 +1,19 @@
+{
+  "cli": {
+    "appVersionSource": "local"
+  },
+  "build": {
+    "android-apk-local": {
+      "android": {
+        "buildType": "apk"
+      },
+      "distribution": "internal"
+    },
+    "android-aab-store": {
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "distribution": "store"
+    }
+  }
+}
