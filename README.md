@@ -87,20 +87,27 @@ assets/sounds/           bundled sound effects
 ## Building for release
 
 Builds use [EAS Build](https://docs.expo.dev/build/introduction/) with the profiles in
-`eas.json`:
+`eas.json`. The build scripts bump the version first, so every build gets a new
+version name and versionCode:
 
 ```bash
-# Play Store bundle (.aab)
-npx eas-cli build --platform android --profile android-aab-store
-
-# Installable APK for testing
-npx eas-cli build --platform android --profile android-apk-local
+npm run build:aab          # Play Store bundle (.aab) on EAS
+npm run build:aab:local    # same, built on this machine into dist/
+npm run build:apk          # installable test APK on EAS
+npm run build:apk:local    # same, built on this machine into dist/
 ```
 
-Add `--local` to build on your own machine (needs the Android SDK and JDK 17).
+Each build bumps the patch version (`1.1.0` → `1.1.1`) and adds 1 to the versionCode.
+Pass `minor` or `major` for a bigger bump, e.g. `npm run build:aab -- minor`
+(`1.1.0` → `1.2.0`). If the build fails, the version is put back. After a successful
+build, commit `app.json` and `package.json` to keep the new version.
+
+To bump without building: `npm run version:bump` (add `-- --dry-run` to preview).
+
+Local builds need the Android SDK and JDK 17.
 The Android signing key is stored on EAS (remote credentials), so it is never needed
 in this repository. Keystores and `credentials.json` are git-ignored; keep them out
 of the repo.
 
-The app version lives in `app.json` (`expo.version`, and `android.versionCode`, which
-must go up for every Play Store upload).
+The app version lives in `app.json` (`expo.version` and `android.versionCode`), and
+`package.json` keeps the same version.

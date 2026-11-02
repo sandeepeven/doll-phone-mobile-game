@@ -8,7 +8,12 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "version:bump": "node scripts/bump-version.js",
+    "build:aab": "node scripts/build-android.js aab",
+    "build:aab:local": "node scripts/build-android.js aab --local",
+    "build:apk": "node scripts/build-android.js apk",
+    "build:apk:local": "node scripts/build-android.js apk --local"
   },
   "dependencies": {
     "@expo-google-fonts/fredoka": "0.4.1",
