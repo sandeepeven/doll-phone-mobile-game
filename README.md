@@ -1,50 +1,40 @@
-# Welcome to your Expo app 👋
+# Doll Phone
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A toy phone for little kids: every key on the keypad plays a fun sound and shows a
+matching picture on the phone screen. Built with [Expo](https://expo.dev) (SDK 58) and
+Expo Router.
 
-## Get started
+## Requirements
 
-1. Install dependencies
+- Node.js 22.13+ (`nvm use` picks it up from `.nvmrc`)
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Getting started
 
 ```bash
-npm run reset-project
+npm install
+npm start          # then press i (iOS) or a (Android)
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Scripts
 
-## Learn more
+| Command             | What it does                    |
+| ------------------- | ------------------------------- |
+| `npm start`         | Start the Expo dev server       |
+| `npm run ios`       | Start and open the iOS app      |
+| `npm run android`   | Start and open the Android app  |
+| `npm run lint`      | Lint with ESLint                |
+| `npm run typecheck` | Type-check with TypeScript      |
 
-To learn more about developing your project with Expo, look at the following resources:
+## Project layout
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- `app/`: screens (`index` decides between the parent agreement and the phone)
+- `components/`: phone body, screen, keypad and keys
+- `constants/phone-keys.ts`: the 12 keys (label, title, emoji, color, sound)
+- `lib/audio-player/`: the single shared sound player
+- `assets/sounds/`: bundled sound effects
 
-## Join the community
+To change what a key does, edit its entry in `constants/phone-keys.ts`.
 
-Join our community of developers creating universal apps.
+## Builds
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+EAS build profiles live in `eas.json` (`android-apk-local`, `android-aab-store`).

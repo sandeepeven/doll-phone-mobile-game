@@ -1,48 +1,50 @@
-import { useAudioPlayer, useAudioPlayerStatus } from "expo-audio";
-import { useEffect } from "react";
+import {
+  setAudioModeAsync,
+  useAudioPlayer,
+  useAudioPlayerStatus,
+  type AudioSource,
+} from "expo-audio";
+import { useEffect, useRef } from "react";
+import { AppState } from "react-native";
 
-export type TrackT = {
-  artwork: string;
-  title: string;
-  file: any;
-};
+// Note: expo-audio's `preload()` is intentionally not used. On iOS (expo-audio
+// 58.0.11) replacing a player's source with a preloaded one freezes the JS thread.
 
-export function useAudioManager(track: TrackT) {
-  const player = useAudioPlayer(track.file);
+/**
+ * A single shared player for the keypad: each tap swaps in the new sound
+ * (or restarts the current one), and playback pauses when the app is backgrounded.
+ */
+export function useSoundBoard() {
+  const player = useAudioPlayer(null);
   const status = useAudioPlayerStatus(player);
+  const currentSource = useRef<AudioSource | null>(null);
 
-  // Effect to handle track changes
   useEffect(() => {
-    // When track changes, the useAudioPlayer will automatically
-    // create a new player instance with the new source
-    playTrack();
-  }, [track.file]);
+    // Kids' toy: play even when the ringer switch is on silent.
+    setAudioModeAsync({
+      playsInSilentMode: true,
+      interruptionMode: "doNotMix",
+    }).catch(() => {});
+  }, []);
 
-  const playTrack = () => {
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", (state) => {
+      if (state !== "active") {
+        player.pause();
+      }
+    });
+    return () => subscription.remove();
+  }, [player]);
+
+  const play = (source: AudioSource) => {
+    if (currentSource.current !== source) {
+      currentSource.current = source;
+      player.replace(source);
+    } else {
+      player.seekTo(0);
+    }
     player.play();
   };
 
-  const pauseTrack = () => {
-    player.pause();
-  };
-
-  const stopTrack = () => {
-    player.pause();
-    player.seekTo(0);
-  };
-
-  const replayTrack = () => {
-    player.seekTo(0);
-    player.play();
-  };
-
-  return {
-    player,
-    playTrack,
-    pauseTrack,
-    stopTrack,
-    replayTrack,
-    currentTrack: track,
-    playerStatus: status,
-  };
+  return { play, isPlaying: status.playing };
 }

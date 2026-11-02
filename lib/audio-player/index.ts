@@ -1,1 +1,1 @@
-export { useAudioManager, type TrackT } from "./audio-player";
+export { useSoundBoard } from "./audio-player";
