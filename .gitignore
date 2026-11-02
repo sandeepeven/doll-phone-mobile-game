@@ -41,3 +41,7 @@ app-example
 # generated native folders
 /ios
 /android
+
+# signing keys (keep outside the repo)
+*.keystore
+credentials.json
